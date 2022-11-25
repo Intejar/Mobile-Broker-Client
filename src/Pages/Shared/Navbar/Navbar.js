@@ -39,10 +39,10 @@ const Navbar = () => {
     // }
 
     const menuItems = <React.Fragment>
-        <li><Link to='/home'>Home</Link></li>
-        <li><Link to='/'>About</Link></li>
-        <li><Link to='/appointment'>Appointment</Link></li>
-        <li><Link to='/dashboard'>Dashboard</Link></li>
+        <li><Link to='/'>Home</Link></li>
+        <li><Link to=''>Category</Link></li>
+        <li><Link to=''>Blog</Link></li>
+        <li><Link to=''>Login</Link></li>
         {/* {
             user?.uid ?
                 <>
@@ -76,7 +76,7 @@ const Navbar = () => {
                         {menuItems}
                     </ul>
                 </div>
-                <Link className="btn btn-ghost normal-case text-xl">Doctor Portal</Link>
+                <Link className="btn btn-ghost normal-case text-xl">Mobile-Broker</Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal p-0">
@@ -97,7 +97,7 @@ const Navbar = () => {
                         :
                         <Link to='/signup' className="btn">Get started</Link>
                 } */}
-                <h1>user</h1>
+                
             </div>
         </div>
     );
