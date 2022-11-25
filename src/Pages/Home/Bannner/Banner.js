@@ -10,25 +10,25 @@ const Banner = () => {
     const slideRef = useRef();
     const featuredImages = [`${img1}`, `${img2}`, `${img3}`];
     const [currentIndex, setCurrentIndex] = useState(0)
-    const removeAnimation = () => {
-        slideRef.current.classList.remove("fade-anim");
-    };
+    // const removeAnimation = () => {
+    //     // slideRef.current.classList.remove("fade-anim");
+    // };
 
     const handleOnNextClick = () => {
         count = (count + 1) % featuredImages.length;
         setCurrentIndex(count);
-        slideRef.current.classList.add("fade-anim");
+        // slideRef.current.classList.add("fade-anim");
     };
 
     const handleOnPrevClick = () => {
         const productsLength = featuredImages.length;
         count = (currentIndex + productsLength - 1) % productsLength;
         setCurrentIndex(count);
-        slideRef.current.classList.add("fade-anim");
+        // slideRef.current.classList.add("fade-anim");
     };
     useEffect(() => {
         startSlider();
-        slideRef.current.addEventListener("animationend", removeAnimation);
+        // slideRef.current.addEventListener("animationend", removeAnimation);
     }, []);
     const startSlider = () => {
         setInterval(() => {

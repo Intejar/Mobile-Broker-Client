@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaUserTie } from "react-icons/fa";
+import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
 
 
 const Navbar = () => {
     const [theme, setTheme] = useState(null)
-    // const { user, logOut } = useContext(AuthContext)
+    const { user, logOut } = useContext(AuthContext)
 
     useEffect(() => {
         if (window.matchMedia('{prefers-color-scheme : dark}').matches) {
@@ -28,30 +29,29 @@ const Navbar = () => {
         setTheme(theme === "dark" ? "light" : "dark")
     }
 
-    // const handleLogOut = () => {
-    //     logOut()
-    //         .then(() => {
+    const handleLogOut = () => {
+        logOut()
+            .then(() => {
 
-    //         })
-    //         .catch(err => {
+            })
+            .catch(err => {
 
-    //         })
-    // }
+            })
+    }
 
     const menuItems = <React.Fragment>
         <li><Link to='/'>Home</Link></li>
         <li><Link to=''>Category</Link></li>
         <li><Link to=''>Blog</Link></li>
-        <li><Link to=''>Login</Link></li>
-        {/* {
+        {
             user?.uid ?
                 <>
-
+                    <li><Link to=''>Dashboard</Link></li>
                     <li><Link onClick={handleLogOut} to='/login'>LogOut</Link></li>
                 </>
                 :
                 <li><Link to='/login'>Login</Link></li>
-        } */}
+        }
         <li>
             <label className="swap swap-rotate">
 
@@ -85,7 +85,7 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                {/* {
+                {
                     user?.uid ?
                         <div className='flex items-center space-x-2'>
                             <FaUserTie></FaUserTie>
@@ -93,11 +93,16 @@ const Navbar = () => {
                             <label tabIndex={1} htmlFor="my-drawer-2" className="btn btn-ghost lg:hidden">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
                             </label>
+                            <div className="avatar">
+                                <div className="w-10 rounded-full">
+                                    <img src={user.photoURL} alt='userPhoto'/>
+                                </div>
+                            </div>
                         </div>
                         :
-                        <Link to='/signup' className="btn">Get started</Link>
-                } */}
-                
+                        <Link to='/register' className="btn">Get started</Link>
+                }
+
             </div>
         </div>
     );
