@@ -1,20 +1,18 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useContext, useState } from 'react';
-import { ClimbingBoxLoader } from 'react-spinners';
-import { FaTrashAlt, FaWindows } from "react-icons/fa";
+import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
 import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
+import { FaTrashAlt, FaWindows } from "react-icons/fa";
+import { ClimbingBoxLoader } from 'react-spinners';
 
-
-
-const Allusers = () => {
+const AllSellers = () => {
     const { user } = useContext(AuthContext)
     const crntUserMail = user.email 
     const { data: users = [], refetch, isLoading } = useQuery(
         {
             queryKey: ['users'],
             queryFn: async () => {
-                const res = await fetch('http://localhost:5000/users');
+                const res = await fetch('http://localhost:5000/users?role=seller');
                 const data = await res.json();
                 return data
             }
@@ -24,9 +22,9 @@ const Allusers = () => {
         return <div className='flex justify-center items-center'><ClimbingBoxLoader color="#36d7b7" /></div>
     }
 
-    const handleAdmin = id => {
-        fetch(`http://localhost:5000/users/admin/${id}`, {
-            method: 'PATCH',
+    const handleVarify = id => {
+        fetch(`http://localhost:5000/users/varify/${id}`, {
+            method: 'PUT',
             // headers: {
             //     authorization: `bearer ${localStorage.getItem('accessToken')}`
             // }
@@ -34,7 +32,7 @@ const Allusers = () => {
             .then(res => res.json())
             .then(data => {
                 if (data.modifiedCount > 0) {
-                    toast.success('user added to admin list')
+                    toast.success('user is varified')
                     refetch()
                 }
             })
@@ -64,7 +62,7 @@ const Allusers = () => {
 
     return (
         <div>
-            <h1>All User</h1>
+            <h1>All Seller</h1>
             <div className="overflow-x-auto mx-5">
                 <table className="table w-full">
                     <thead>
@@ -72,7 +70,7 @@ const Allusers = () => {
                             <th></th>
                             <th>Name</th>
                             <th>Email</th>
-                            <th>Admin</th>
+                            <th>Varify</th>
                             <th>Delete</th>
                         </tr>
                     </thead>
@@ -83,7 +81,7 @@ const Allusers = () => {
                                     <th>{i + 1}</th>
                                     <td>{user.name}</td>
                                     <td>{user.email}</td>
-                                    <td>{user?.role !== 'admin' && <button onClick={() => handleAdmin(user._id)} className='btn btn-xs btn-primary'>make admin</button>}</td>
+                                    <td>{user.userStatus !=='varified' &&  <button onClick={() => handleVarify(user._id)} className='btn btn-xs btn-primary'>varify</button>}</td>
                                     <td> <button onClick={() => userDelete(user._id, user.email)}><FaTrashAlt className='text-red-400 hover:text-xl'></FaTrashAlt></button>
                                     </td>
                                 </tr>
@@ -96,4 +94,4 @@ const Allusers = () => {
     );
 };
 
-export default Allusers;
+export default AllSellers;

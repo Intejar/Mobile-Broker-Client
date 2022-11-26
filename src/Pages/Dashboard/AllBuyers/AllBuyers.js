@@ -1,20 +1,19 @@
-import { useQuery } from '@tanstack/react-query';
-import React, { useContext, useState } from 'react';
-import { ClimbingBoxLoader } from 'react-spinners';
-import { FaTrashAlt, FaWindows } from "react-icons/fa";
-import toast from 'react-hot-toast';
+import React, { useContext } from 'react';
 import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
+import toast from 'react-hot-toast';
+import { FaTrashAlt, FaWindows } from "react-icons/fa";
+import { ClimbingBoxLoader } from 'react-spinners';
+import { useQuery } from '@tanstack/react-query';
 
 
-
-const Allusers = () => {
+const AllBuyers = () => {
     const { user } = useContext(AuthContext)
     const crntUserMail = user.email 
     const { data: users = [], refetch, isLoading } = useQuery(
         {
             queryKey: ['users'],
             queryFn: async () => {
-                const res = await fetch('http://localhost:5000/users');
+                const res = await fetch('http://localhost:5000/users?role=buyer');
                 const data = await res.json();
                 return data
             }
@@ -64,7 +63,7 @@ const Allusers = () => {
 
     return (
         <div>
-            <h1>All User</h1>
+            <h1>All Seller</h1>
             <div className="overflow-x-auto mx-5">
                 <table className="table w-full">
                     <thead>
@@ -72,7 +71,7 @@ const Allusers = () => {
                             <th></th>
                             <th>Name</th>
                             <th>Email</th>
-                            <th>Admin</th>
+                            <th>Varify</th>
                             <th>Delete</th>
                         </tr>
                     </thead>
@@ -96,4 +95,4 @@ const Allusers = () => {
     );
 };
 
-export default Allusers;
+export default AllBuyers;
