@@ -31,7 +31,7 @@ const ProductCard = ({ product }) => {
             customerEmail: user.email,
             productName: productName,
             productPrice: resalePrice,
-            paymentStatus : 'unpaid'
+            paymentStatus: 'unpaid'
         }
 
         fetch('http://localhost:5000/wishlist', {
@@ -48,18 +48,46 @@ const ProductCard = ({ product }) => {
                 navigate('/dashboard/MyWishList')
 
             })
- }
+
+    }
+    const [isVarified, setIsVarified] = useState(false);
+    const [isAdminLoading, setIsAdminLoading] = useState(true)
+
+    useEffect(() => {
+        if (email) {
+            fetch(`http://localhost:5000/users/varify/${email}`)
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
+                    setIsVarified(data.isVarified)
+                    setIsAdminLoading(false)
+                })
+        }
+    }, [email])
     return (
         <div className="hero bg-gray-300 mx-5">
             <div className="hero-content flex-col lg:flex-row">
                 <img src={productImg} alt="productImg" className="max-w-sm rounded-lg shadow-2xl" />
                 <div className='card'>
                     <div className='flex items-center space-x-2'>
-                        <div className="avatar">
-                            <div className="w-24 rounded-xl">
-                                <img src={photo} alt='sellerPhoto' />
-                            </div>
-                        </div>
+                        {
+                            isVarified ?
+                                <div className="indicator">
+                                    <span className="indicator-item indicator-bottom badge badge-primary">✓</span>
+                                    <div className="avatar">
+                                        <div className="w-24 rounded-xl">
+                                            <img src={photo} alt='sellerPhoto' />
+                                        </div>
+                                    </div>
+                                </div>
+                                :
+                                <div className="avatar">
+                                    <div className="w-24 rounded-xl">
+                                        <img src={photo} alt='sellerPhoto' />
+                                    </div>
+                                </div>
+
+                        }
                         <div>
                             <div className='flex items-center space-x-2'>
                                 <div><FaMailBulk></FaMailBulk></div>
@@ -97,7 +125,7 @@ const ProductCard = ({ product }) => {
                                 ?
                                 <>
                                     <button className="btn btn-primary">Report</button>
-                                    <button onClick={()=>handleHeart(productName)} className="btn btn-primary">{heart}</button>
+                                    <button onClick={() => handleHeart(productName)} className="btn btn-primary">{heart}</button>
                                     <label onClick={() => setBooking(_id)} htmlFor="booking-modal" className='btn'>book now</label>
                                 </>
                                 :
