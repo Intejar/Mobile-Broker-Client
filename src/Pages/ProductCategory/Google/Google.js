@@ -6,9 +6,9 @@ import ProductCard from '../ProductCard/ProductCard';
 
 const Google = () => {
     const { data: products = [], refetch, isLoading } = useQuery({
-        queryKey: ['Apple'],
+        queryKey: ['Google'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/products?category=Apple')
+            const res = await fetch('http://localhost:5000/products?category=Google')
             const data = await res.json();
             return data
         }

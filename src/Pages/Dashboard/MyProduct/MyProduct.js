@@ -26,26 +26,22 @@ const MyProduct = () => {
         return <div className='flex justify-center items-center'><ClimbingBoxLoader color="#36d7b7" /></div>
     }
 
-    const userDelete = (id, email) => {
-        if (email === crntUserMail) {
-            toast.error('you can not delete yourself')
-        }
-        else {
-            const proceed = window.confirm('Are you sure you want to delete this user?')
-            if (proceed) {
-                fetch(`http://localhost:5000/users/${id}`, {
-                    method: 'DELETE',
+    const handleDelete = (id) => {
+        const proceed = window.confirm('Are you sure you want to delete this user?')
+        if (proceed) {
+            fetch(`http://localhost:5000/products/${id}`, {
+                method: 'DELETE',
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
+                    if (data.deletedCount > 0) {
+                        toast.success('user has successfully deleted')
+                        refetch()
+                    }
                 })
-                    .then(res => res.json())
-                    .then(data => {
-                        console.log(data)
-                        if (data.deletedCount > 0) {
-                            toast.success('user has successfully deleted')
-                            refetch()
-                        }
-                    })
-            }
         }
+
     }
 
     return (
@@ -69,8 +65,8 @@ const MyProduct = () => {
                                     <th>{i + 1}</th>
                                     <td>{product.productName}</td>
                                     <td>{product.resalePrice}</td>
-                                    <td><label onClick={() => setEdit(product._id)} htmlFor="my-modal-3" className='btn'><FaEdit  className='text-blue-400 hover:text-xl'></FaEdit></label></td>
-                                    <td><button onClick={() => userDelete(user._id, user.email)}><FaTrashAlt className='text-red-400 hover:text-xl'></FaTrashAlt></button>
+                                    <td><label onClick={() => setEdit(product._id)} htmlFor="my-modal-3" className='btn'><FaEdit className='text-blue-400 hover:text-xl'></FaEdit></label></td>
+                                    <td><button onClick={() => handleDelete(product._id)}><FaTrashAlt className='text-red-400 hover:text-xl'></FaTrashAlt></button>
                                     </td>
                                 </tr>
                             )

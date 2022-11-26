@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react';
 const EditModal = ({ edit }) => {
     console.log(edit)
     const [info, setInfo] = useState([])
-    const prevInfo = info[0]
     useEffect(() => {
         fetch(`http://localhost:5000/products/${edit}`)
             .then(res => res.json())
@@ -13,6 +12,8 @@ const EditModal = ({ edit }) => {
                 setInfo(data)
             })
     }, [edit])
+    
+    const prevInfo = info[0]
 
     console.log(info, prevInfo)
     // const handleEdit = event => {
