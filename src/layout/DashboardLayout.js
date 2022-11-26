@@ -1,10 +1,20 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { AuthContext } from '../context/AuthProvider/AuthProvider';
 import Navbar from '../Pages/Shared/Navbar/Navbar';
 
 const DashboardLayout = () => {
     const { user } = useContext(AuthContext)
+    const [userRole, setUserRole] = useState([])
+    useEffect(() => {
+        fetch(`http://localhost:5000/users?email=${user?.email}`)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                setUserRole(data)
+            })
+    }, [user?.email])
+    const userInfo = userRole[0]
     return (
         <div>
             <Navbar></Navbar>
@@ -16,10 +26,21 @@ const DashboardLayout = () => {
                 <div className="drawer-side">
                     <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
                     <ul className="menu p-4 w-80 bg-slate-300 dark:bg-slate-600 text-base-content">
-                        <li><Link to='/dashboard'>My Products</Link></li>
-                        <li><Link to='/dashboard/AddProduct'>Add Product</Link></li>
-                        <li><Link to='/dashboard/MyOrders'>My Orders</Link></li>
-                        <li><Link to='/dashboard/MyWishList'>My Wish List</Link></li>
+                        {
+                            userInfo?.role === 'seller' &&
+                            <>
+                                <li> <Link to='/dashboard/MyProduct'>My Products</Link></li>
+                                <li><Link to='/dashboard/AddProduct'>Add Product</Link></li>
+                            </>
+                        }
+                        {
+                            userInfo?.role === 'buyer' &&
+                            <>
+                                <li><Link to='/dashboard/MyOrders'>My Orders</Link></li>
+                                <li><Link to='/dashboard/MyWishList'>My Wish List</Link></li>
+
+                            </>
+                        }
                         <li><Link to='/dashboard/AllUsers'>All User</Link></li>
                     </ul>
                 </div>

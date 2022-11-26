@@ -14,7 +14,7 @@ const MyOrders = () => {
         {
             queryKey: ['booking'],
             queryFn: async () => {
-                const res = await fetch('http://localhost:5000/bookings');
+                const res = await fetch(`http://localhost:5000/bookings?customerEmail=${crntUserMail}`);
                 const data = await res.json();
                 return data
             }
@@ -60,14 +60,14 @@ const MyOrders = () => {
 
     return (
         <div>
-            <h1>All User</h1>
+            <h1>All Orders</h1>
             <div className="overflow-x-auto mx-5">
                 <table className="table w-full">
                     <thead>
                         <tr>
                             <th></th>
-                            <th>Name</th>
-                            <th>Email</th>
+                            <th>Product Name</th>
+                            <th>Product Price</th>
                             <th>Pay</th>
                             <th>Delete</th>
                         </tr>
@@ -79,7 +79,14 @@ const MyOrders = () => {
                                     <th>{i + 1}</th>
                                     <td>{booking.productName}</td>
                                     <td>{booking.productPrice}</td>
-                                    <td>pay</td>
+                                    <td> 
+                                        {
+                                            booking?.paymentStatus === 'unpaid' ?
+                                            <button className='btn btn-xs'>pay</button>
+                                            :
+                                            <button className='btn btn-xs'>paid</button>
+                                        }
+                                    </td>
                                     <td> <button onClick={() => bookingDelete(booking._id,booking.productName)}><FaTrashAlt className='text-red-400 hover:text-xl'></FaTrashAlt></button>
                                     </td>
                                 </tr>

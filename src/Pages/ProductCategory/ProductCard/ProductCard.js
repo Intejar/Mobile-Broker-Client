@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { FaPhoneAlt, FaMailBulk, FaMapMarkerAlt } from "react-icons/fa";
 import { HiHeart } from "react-icons/hi";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
 import BookingModal from '../BookingModal/BookingModal';
 
@@ -24,12 +24,14 @@ const ProductCard = ({ product }) => {
     }, [user?.email])
     const userInfo = userRole[0]
     const [heart, setHeart] = useState(<HiHeart></HiHeart>)
-    const handleHeart = () => {
+    const handleHeart = (name) => {
+        setHeart(<HiHeart className='text-red-500'></HiHeart>)
         const wishlist = {
             customerName: user.displayName,
             customerEmail: user.email,
             productName: productName,
-            productPrice: resalePrice
+            productPrice: resalePrice,
+            paymentStatus : 'unpaid'
         }
 
         fetch('http://localhost:5000/wishlist', {
@@ -42,12 +44,10 @@ const ProductCard = ({ product }) => {
             .then(res => res.json())
             .then(data => {
                 console.log(data)
-                setHeart(<HiHeart className='text-red-500'></HiHeart>)
-                toast.success(`product ${wishlist.productName} is added in wishlist`)
+                toast.success(`product ${name} is added in wishlist`)
                 navigate('/dashboard/MyWishList')
 
             })
-
  }
     return (
         <div className="hero bg-gray-300 mx-5">
@@ -97,11 +97,11 @@ const ProductCard = ({ product }) => {
                                 ?
                                 <>
                                     <button className="btn btn-primary">Report</button>
-                                    <button onClick={handleHeart} className="btn btn-primary">{heart}</button>
+                                    <button onClick={()=>handleHeart(productName)} className="btn btn-primary">{heart}</button>
                                     <label onClick={() => setBooking(_id)} htmlFor="booking-modal" className='btn'>book now</label>
                                 </>
                                 :
-                                <button className="btn btn-primary">Add Product</button>
+                                <button className="btn btn-primary"><Link to='/dashboard/AddProduct'>Add Product</Link></button>
                         }
                         {
                             booking && <BookingModal booking={booking} user={user}></BookingModal>

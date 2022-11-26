@@ -56,7 +56,7 @@ const AddProduct = () => {
                         .then(data => {
                             console.log(data)
                             toast.success('your product added successfully')
-                            navigate('/dashboard')
+                            navigate('/dashboard/MyProduct')
                         
                         })
                 }
@@ -167,7 +167,6 @@ const AddProduct = () => {
                                     <input {...register("resalePrice")} name='resalePrice' type="text" placeholder="Your Asking Price" className="input input-bordered" />
                                 </div>
 
-                                
                             </div>
                             <div className="form-control mt-3 w-full">
                                     <label className="label">

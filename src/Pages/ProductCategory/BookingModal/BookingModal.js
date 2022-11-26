@@ -29,7 +29,8 @@ const BookingModal = ({booking, user}) => {
             customerPhone : phoneNumber,
             productName: productName,
             productPrice: productPrice,
-            location: location
+            location: location,
+            paymentStatus : 'unpaid'
         }
         fetch('http://localhost:5000/bookings', {
             method: "POST",
@@ -42,7 +43,7 @@ const BookingModal = ({booking, user}) => {
             .then(data => {
                 console.log(data)
                 if (data.acknowledged) {
-                    toast.success(`your booking for ${bookingInfo.productName} is confirmed`)
+                    toast.success(`your booking for ${productName} is confirmed`)
                     navigate('/dashboard/MyOrders')
                     
                 }

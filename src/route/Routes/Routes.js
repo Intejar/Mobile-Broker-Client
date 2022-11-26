@@ -6,6 +6,7 @@ import Allusers from "../../Pages/Dashboard/AllUsers/Allusers";
 import MyOrders from "../../Pages/Dashboard/MyOrders/MyOrders";
 import MyProduct from "../../Pages/Dashboard/MyProduct/MyProduct";
 import MyWishList from "../../Pages/Dashboard/MyWishList/MyWishList";
+import UserProfile from "../../Pages/Dashboard/UserProfile/UserProfile";
 import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Login/Login";
 import Android from "../../Pages/ProductCategory/Android/Android";
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
         children: [
             {
                 path : '/dashboard',
+                element:<UserProfile></UserProfile>
+            },
+            {
+                path : '/dashboard/MyProduct',
                 element:<MyProduct></MyProduct>
             },
             {
