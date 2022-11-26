@@ -8,6 +8,9 @@ import MyProduct from "../../Pages/Dashboard/MyProduct/MyProduct";
 import MyWishList from "../../Pages/Dashboard/MyWishList/MyWishList";
 import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Login/Login";
+import Android from "../../Pages/ProductCategory/Android/Android";
+import Apple from "../../Pages/ProductCategory/Apple/Apple";
+import Google from "../../Pages/ProductCategory/Google/Google";
 import Register from "../../Pages/Register/Register";
 
 const router = createBrowserRouter([
@@ -26,6 +29,18 @@ const router = createBrowserRouter([
             {
                 path:'/register',
                 element:<Register></Register>
+            },
+            {
+                path:'/category/apple',
+                element:<Apple></Apple>
+            },
+            {
+                path:'/category/android',
+                element:<Android></Android>
+            },
+            {
+                path:'/category/google',
+                element:<Google></Google>
             }
         ]
     },

@@ -15,7 +15,7 @@ const Category = () => {
                         <h2 className="card-title">Apple Products</h2>
                         <p>Here you can find all apple I phone that sellers posted to sale!</p>
                         <div className="card-actions justify-end">
-                            <button className="btn btn-primary"><Link>see products</Link></button>
+                            <button className="btn btn-primary"><Link to='/category/apple'>see products</Link></button>
                         </div>
                     </div>
                 </div>
@@ -25,7 +25,7 @@ const Category = () => {
                         <h2 className="card-title">Android Products</h2>
                         <p>Here You can find all android products that sellers has posted to sale!</p>
                         <div className="card-actions justify-end">
-                            <button className="btn btn-primary">see products</button>
+                            <button className="btn btn-primary"><Link to='/category/android'>see products</Link></button>
                         </div>
                     </div>
                 </div>
@@ -35,7 +35,7 @@ const Category = () => {
                         <h2 className="card-title">Google Products</h2>
                         <p>Here You can find all google pixel phones that sellers has posted!</p>
                         <div className="card-actions justify-end">
-                            <button className="btn btn-primary">see products</button>
+                            <button className="btn btn-primary"><Link to='/category/google'>see products</Link></button>
                         </div>
                     </div>
                 </div>

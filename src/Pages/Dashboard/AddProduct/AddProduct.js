@@ -2,6 +2,7 @@ import { format } from 'date-fns';
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
 
 const AddProduct = () => {
@@ -9,6 +10,7 @@ const AddProduct = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
     const imageHostKey = process.env.REACT_APP_imgbbKey
     const setDate = new Date()
+    const navigate = useNavigate()
     console.log(imageHostKey)
 
     const handleAddProduct = data => {
@@ -29,6 +31,7 @@ const AddProduct = () => {
                         name: data.name,
                         email: data.email,
                         photo: data.photo,
+                        phoneNumber : data.phoneNumber,
                         location : data.location,
                         productImg: imgData.data.url,
                         productName : data.productName,
@@ -52,7 +55,9 @@ const AddProduct = () => {
                         .then(res => res.json())
                         .then(data => {
                             console.log(data)
-                            toast.success(`${data.name} your product added successfully`)
+                            toast.success('your product added successfully')
+                            navigate('/dashboard')
+                        
                         })
                 }
             })
