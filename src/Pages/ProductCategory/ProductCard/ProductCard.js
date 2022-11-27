@@ -5,11 +5,13 @@ import { HiHeart } from "react-icons/hi";
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
 import BookingModal from '../BookingModal/BookingModal';
+import { FaUserTie } from "react-icons/fa";
+
 
 
 
 const ProductCard = ({ product }) => {
-    const { _id, category, phoneNumber, condition, date, description, email, location, originalPrice, photo, productImg, productName, purchaseYear, usedYear, resalePrice } = product
+    const { _id, category, phoneNumber, condition, date, description,name, email, location, originalPrice, photo, productImg, productName, purchaseYear, usedYear, resalePrice } = product
     const { user } = useContext(AuthContext)
     const [userRole, setUserRole] = useState([])
     const [booking, setBooking] = useState(null)
@@ -89,6 +91,10 @@ const ProductCard = ({ product }) => {
 
                         }
                         <div>
+                        <div className='flex items-center space-x-2'>
+                                <div><FaUserTie></FaUserTie></div>
+                                <div className='text-md'>{name}</div>
+                            </div>
                             <div className='flex items-center space-x-2'>
                                 <div><FaMailBulk></FaMailBulk></div>
                                 <div className='text-md'>{email}</div>

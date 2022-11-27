@@ -42,7 +42,8 @@ const AddProduct = () => {
                         originalPrice : data.originalPrice,
                         resalePrice : data.resalePrice,
                         description : data.description,
-                        date : format(setDate,'PP')
+                        date : format(setDate,'PP'),
+                        status : 'unsold'
                     }
                     console.log(product)
                     fetch('http://localhost:5000/products', {

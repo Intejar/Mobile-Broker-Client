@@ -88,7 +88,7 @@ const BookingModal = ({booking, user}) => {
                             <span className="label-text">MeetUp Location</span>
                         </label>
                         <input name='location' type="text" placeholder="Meet up location"  className="my-1 input input-border border-gray-200 w-full " />
-                        <input type="submit" value='save changes' className="my-1 input input-border input-accent bg-accent text-white w-full " />
+                        <input type="submit" value='confirm booking' className="my-1 input input-border input-accent bg-accent text-white w-full " />
                     </form>
                 </div>
             </div>

@@ -20,7 +20,7 @@ const Google = () => {
     return (
         <div>
             <h1>All Apple Products Here</h1>
-            <div className='grid sm:grid-cols-1 md:grid-cols-2'>
+            <div className='grid  grid-cols-1 mx-5'>
                 {
                     products.map(product =><ProductCard key={product._id} product={product}></ProductCard>)
                 }

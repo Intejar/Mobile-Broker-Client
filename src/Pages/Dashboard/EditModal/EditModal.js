@@ -1,7 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 
-const EditModal = ({ edit }) => {
+const EditModal = ({ edit, refetch }) => {
     console.log(edit)
     const [info, setInfo] = useState([])
     useEffect(() => {
@@ -20,29 +21,24 @@ const EditModal = ({ edit }) => {
         const price = form.price.value;
         const name = form.name.value;
 
-        const editedInfo = [
-             name,
-             price,
-             details
-        ]
+    
         fetch(`http://localhost:5000/products/${edit}`, {
             method: "PATCH",
             headers: {
                 'content-type': 'application/json'
             },
-            body: JSON.stringify(editedInfo)
+            body: JSON.stringify({editedData : details})
         })
             .then(res => res.json())
             .then(data => {
                 console.log(data)
-                // if (data.acknowledged) {
-                //     setTreatment(null)
-                //     toast.success(`your booking for ${booking.treatment} is confirmed`)
-                //     refetch()
-                // }
-                // else{
-                //     toast.error(data.message)
-                // }
+                if (data.acknowledged) {
+                    toast.success('saved changes')
+                    refetch()
+                }
+                else{
+                    toast.error(data.message)
+                }
             })
     }
     return (
@@ -57,11 +53,11 @@ const EditModal = ({ edit }) => {
                         <label className="label">
                             <span className="label-text">Product Name</span>
                         </label>
-                        <input name='name' type="text" placeholder="Product Name" defaultValue={info.productName} className="my-1 input input-border input-accent  w-full " />
+                        <input name='name' type="text" placeholder="Product Name" defaultValue={info.productName} disabled className="my-1 input input-border input-accent  w-full " />
                         <label className="label">
                             <span className="label-text">Product Resale Price</span>
                         </label>
-                        <input name='price' type="text" placeholder="Product Resale Price" defaultValue={info.resalePrice} className="my-1 input input-border input-accent w-full " />
+                        <input name='price' type="text" placeholder="Product Resale Price" defaultValue={info.resalePrice} disabled className="my-1 input input-border input-accent w-full " />
                         <label className="label">
                             <span className="label-text">Description</span>
                         </label>

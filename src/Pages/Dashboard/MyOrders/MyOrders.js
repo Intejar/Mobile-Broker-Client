@@ -4,6 +4,8 @@ import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
 import { ClimbingBoxLoader } from 'react-spinners';
 import toast from 'react-hot-toast';
 import { FaTrashAlt, FaWindows } from "react-icons/fa";
+import { Link } from 'react-router-dom';
+
 
 
 
@@ -82,7 +84,7 @@ const MyOrders = () => {
                                     <td> 
                                         {
                                             booking?.paymentStatus === 'unpaid' ?
-                                            <button className='btn btn-xs'>pay</button>
+                                            <Link to={`/dashboard/payment/${booking._id}`}><button className='btn btn-xs'>pay</button></Link>
                                             :
                                             <button className='btn btn-xs'>paid</button>
                                         }

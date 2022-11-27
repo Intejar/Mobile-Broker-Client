@@ -1,12 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
-import AdvertiseProduct from '../AdvertiseProduct/AdvertiseProduct';
-import Banner from '../Bannner/Banner';
-import Category from '../Category/Category';
+import { Link } from 'react-router-dom';
 import { ClimbingBoxLoader } from 'react-spinners';
+import AdvertiseCard from './AdvertiseCard';
 
 
-const Home = () => {
+const AdvertiseProduct = () => {
     const { data: products = [], refetch, isLoading } = useQuery({
         queryKey: ['Product'],
         queryFn: async () => {
@@ -20,21 +19,15 @@ const Home = () => {
         return <div className='flex justify-center items-center'><ClimbingBoxLoader color="#36d7b7" /></div>
     }
     return (
-        <div className='dark:bg-slate-300'>
-            <div className='mx-5'>
-                <Banner></Banner>
+        <div>
+            <h1 className='text-2xl text-center font-bold mb-5'>Advertised Product</h1>
+            <div className='grid sm:grid-cols-1  md:grid-cols-3 gap-2'>
+                {
+                    products.map(product => <AdvertiseCard key={product._id} product={product}></AdvertiseCard>)
+                }
             </div>
-            <div className='mx-5 my-10'>
-                <Category></Category>
-            </div>
-            {
-                products.length &&
-                <div className='mx-5 my-10'>
-                    <AdvertiseProduct></AdvertiseProduct>
-                </div>
-            }
         </div>
     );
 };
 
-export default Home;
+export default AdvertiseProduct;
