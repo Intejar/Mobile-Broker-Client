@@ -43,6 +43,10 @@ const DashboardLayout = () => {
                         }
                         {userInfo?.role ==='admin' && 
                             <>
+                                <li> <Link className='font-bold dark:text-white' to='/dashboard/MyProduct'>My Products</Link></li>
+                                <li><Link className='font-bold dark:text-white' to='/dashboard/AddProduct'>Add Product</Link></li>
+                                <li><Link className='font-bold dark:text-white' to='/dashboard/MyOrders'>My Orders</Link></li>
+                                <li><Link className='font-bold dark:text-white' to='/dashboard/MyWishList'>My Wish List</Link></li>
                                 <li><Link className='font-bold dark:text-white' to='/dashboard/AllSellers'>All Sellers</Link></li>
                                 <li><Link className='font-bold dark:text-white' to='/dashboard/AllBuyers'>All Buyers</Link></li>
                                 <li><Link className='font-bold dark:text-white' to='/dashboard/AllUsers'>All User</Link></li>

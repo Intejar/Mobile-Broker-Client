@@ -31,7 +31,7 @@ const ProductCard = ({ product }) => {
         const wishlist = {
             customerName: user.displayName,
             customerEmail: user.email,
-            productId : _id,
+            productId: _id,
             productName: productName,
             productPrice: resalePrice,
             paymentStatus: 'unpaid'
@@ -136,13 +136,31 @@ const ProductCard = ({ product }) => {
                                     {
                                         status === 'sold' ?
 
-                                        <label  className='btn'>not available</label>
-                                        :
-                                        <label onClick={() => setBooking(_id)} htmlFor="booking-modal" className='btn btn-primary'>book now</label>
+                                            <label className='btn'>not available</label>
+                                            :
+                                            <label onClick={() => setBooking(_id)} htmlFor="booking-modal" className='btn btn-primary'>book now</label>
                                     }
                                 </>
                                 :
                                 <button className="btn btn-primary"><Link to='/dashboard/AddProduct'>Add Product</Link></button>
+                        }
+                        {
+                            userInfo?.role === 'admin' &&
+
+                            <>
+                                {/* <button className="btn btn-primary">Report</button> */}
+                                <button onClick={() => handleHeart(productName)} className="btn btn-primary">{heart}</button>
+                                {
+                                    status === 'sold' ?
+
+                                        <label className='btn'>not available</label>
+                                        :
+                                        <label onClick={() => setBooking(_id)} htmlFor="booking-modal" className='btn btn-primary'>book now</label>
+                                }
+                                {/* <button className="btn btn-primary"><Link to='/dashboard/AddProduct'>Add Product</Link></button> */}
+                            </>
+
+
                         }
                         {
                             booking && <BookingModal booking={booking} user={user}></BookingModal>

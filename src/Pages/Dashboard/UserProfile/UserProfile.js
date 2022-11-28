@@ -40,10 +40,12 @@ const UserProfile = () => {
                 </div>
             }
             {
-                userInfo?.role === 'Admin' &&
+                userInfo?.role === 'admin' &&
                 <div>
                     <ul className="steps steps-vertical">
                         <li className="step step-primary">Hlw Admin</li>
+                        <li className="step step-primary">Add Product</li>
+                        <li className="step step-primary">Buy Product</li>
                         <li className="step step-primary">See User</li>
                         <li className="step">Seller</li>
                         <li className="step">Buyer</li>
