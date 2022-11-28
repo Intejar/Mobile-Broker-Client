@@ -10,6 +10,7 @@ import MyProduct from "../../Pages/Dashboard/MyProduct/MyProduct";
 import MyWishList from "../../Pages/Dashboard/MyWishList/MyWishList";
 import Payment from "../../Pages/Dashboard/Payment/Payment";
 import UserProfile from "../../Pages/Dashboard/UserProfile/UserProfile";
+import WishListPay from "../../Pages/Dashboard/wishListPay/wishListPay";
 import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Login/Login";
 import Android from "../../Pages/ProductCategory/Android/Android";
@@ -88,6 +89,12 @@ const router = createBrowserRouter([
                 path : '/dashboard/payment/:id',
                 element : <Payment></Payment>,
                 loader : ({params}) => fetch(`http://localhost:5000/bookings/${params.id}`)
+            },
+            {
+                path : '/dashboard/payment/:id',
+                element : <WishListPay></WishListPay>,
+                loader : ({params}) => fetch(`http://localhost:5000/wishlist/${params.id}`)
+                
             }
         ]
     }

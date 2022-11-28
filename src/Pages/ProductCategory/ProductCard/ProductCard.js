@@ -31,6 +31,7 @@ const ProductCard = ({ product }) => {
         const wishlist = {
             customerName: user.displayName,
             customerEmail: user.email,
+            productId : _id,
             productName: productName,
             productPrice: resalePrice,
             paymentStatus: 'unpaid'
