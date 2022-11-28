@@ -2,12 +2,13 @@ import { GoogleAuthProvider } from 'firebase/auth';
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaEyeSlash, FaEye, FaGoogle, FaGithub } from "react-icons/fa";
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 // import loginAnim from '../../login.json'
 import Lottie from 'react-lottie';
 import './Login.css'
+import useToken from '../hooks/useToken';
 
 
 const Login = () => {
@@ -25,16 +26,16 @@ const Login = () => {
     const [logInSuccess, setLogInSuccess] = useState(false)
     const [getemail, setEmail] = useState('');
     const [logInUserEmail, setLogInUserEmail] = useState('')
-    // const [token] = useToken(logInUserEmail)
+    const [token] = useToken(logInUserEmail)
     const { logIn, forgetPassword, googleLogIn } = useContext(AuthContext)
-    // const location = useLocation();
+    const location = useLocation();
     const navigate = useNavigate();
     const googleProvider = new GoogleAuthProvider()
 
-    // const from = location.state?.from?.pathname || '/home';
-    // if (token) {
-    //     navigate(from, { replace: true });
-    // }
+    const from = location.state?.from?.pathname || '/';
+    if (token) {
+        navigate(from, { replace: true });
+    }
     const toggle = () => {
         setOpen(!open)
     }
@@ -49,7 +50,6 @@ const Login = () => {
                 const user = res.user;
                 console.log(user)
                 toast.success('user login successfully')
-                navigate('/')
                 setLogInUserEmail(data.email)
             })
             .catch(err => {
@@ -87,7 +87,6 @@ const Login = () => {
                         if (data.length) {
                             setLogInUserEmail(data[0].email)
                             toast.success('user login successfull')
-                            navigate('/')
                         }
                         else {
                             const role = 'buyer'
@@ -114,7 +113,6 @@ const Login = () => {
             .then(res => res.json())
             .then(data => {
                 setLogInUserEmail(email)
-                navigate('/')
             })
     }
     return (

@@ -68,7 +68,7 @@ const ProductCard = ({ product }) => {
         }
     }, [email])
     return (
-        <div className="hero bg-gray-300 dark:bg-slate-600 dark:text-white rounded-xl">
+        <div className="hero my-10 bg-gray-300 dark:bg-slate-600 dark:text-white rounded-xl">
             <div className="hero-content flex-col lg:flex-row">
                 <img src={productImg} alt="productImg" className="max-w-sm rounded-lg shadow-2xl" />
                 <div className='card'>

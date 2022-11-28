@@ -22,7 +22,7 @@ const Google = () => {
             <h1 className='text-2xl text-center font-bold my-4 dark:text-white'>All Goole Products Here</h1>
             {
                 products.length > 0 ?
-                    <div className='grid grid-cols-1 mx-10'>
+                    <div className='my-10 mx-10'>
                         {
                             products.map(product => <ProductCard key={product._id} product={product}></ProductCard>)
                         }

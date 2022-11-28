@@ -2,11 +2,12 @@ import { GoogleAuthProvider } from 'firebase/auth';
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 import { FaEyeSlash, FaEye, FaGoogle, FaGithub, FaWindows } from "react-icons/fa";
 import './Register.css';
 import Lottie from 'react-lottie';
+import useToken from '../hooks/useToken';
 
 
 const Register = () => {
@@ -23,16 +24,17 @@ const Register = () => {
     const googleProvider = new GoogleAuthProvider()
     const [open, setOpen] = useState(false);
     const [signUpError, setSignUpError] = useState('')
-    const [alreadyLogIn, setAlreadyLogIn] = useState('')
     const [userEmail, setUserEmail] = useState('')
+    const location = useLocation();
     const imageHostKey = process.env.REACT_APP_imgbbKey;
     console.log(imageHostKey)
-    // const [token] = useToken(userEmail)
+    const [token] = useToken(userEmail)
+    const from = location.state?.from?.pathname || '/';
     const navigate = useNavigate()
 
-    // if (token) {
-    //     navigate('/home')
-    // }
+    if (token) {
+        navigate(from, { replace: true });
+    }
 
     const toggle = () => {
         setOpen(!open)

@@ -16,7 +16,11 @@ const MyOrders = () => {
         {
             queryKey: ['booking'],
             queryFn: async () => {
-                const res = await fetch(`http://localhost:5000/bookings?customerEmail=${crntUserMail}`);
+                const res = await fetch(`http://localhost:5000/bookings?customerEmail=${crntUserMail}`, {
+                    headers: {
+                        authorization: `bearer ${localStorage.getItem('accessToken')}`
+                    }
+                });
                 const data = await res.json();
                 return data
             }
@@ -81,15 +85,15 @@ const MyOrders = () => {
                                     <th>{i + 1}</th>
                                     <td>{booking.productName}</td>
                                     <td>{booking.productPrice}</td>
-                                    <td> 
+                                    <td>
                                         {
                                             booking?.paymentStatus === 'unpaid' ?
-                                            <Link to={`/dashboard/payment/${booking._id}`}><button className='btn btn-xs'>pay</button></Link>
-                                            :
-                                            <button className='btn btn-xs'>paid</button>
+                                                <Link to={`/dashboard/payment/${booking._id}`}><button className='btn btn-xs'>pay</button></Link>
+                                                :
+                                                <button className='btn btn-xs'>paid</button>
                                         }
                                     </td>
-                                    <td> <button onClick={() => bookingDelete(booking._id,booking.productName)}><FaTrashAlt className='text-red-400 hover:text-xl'></FaTrashAlt></button>
+                                    <td> <button onClick={() => bookingDelete(booking._id, booking.productName)}><FaTrashAlt className='text-red-400 hover:text-xl'></FaTrashAlt></button>
                                     </td>
                                 </tr>
                             )
