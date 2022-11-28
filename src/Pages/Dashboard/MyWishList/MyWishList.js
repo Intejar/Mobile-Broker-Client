@@ -83,7 +83,7 @@ const MyWishList = () => {
                                     <td> 
                                         {
                                             booking?.paymentStatus === 'unpaid' ?
-                                            <Link to={`/dashboard/payment/${booking._id}`}><button className='btn btn-xs'>pay</button></Link>
+                                            <Link to={`/dashboard/wishlistPay/${booking._id}`}><button className='btn btn-xs'>pay</button></Link>
                                             :
                                             <button className='btn btn-xs bg-green-400 text-white'>paid</button>
                                         }

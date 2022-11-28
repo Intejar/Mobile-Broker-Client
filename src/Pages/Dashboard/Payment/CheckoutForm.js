@@ -50,6 +50,7 @@ const CheckoutForm = ({ data }) => {
             setCardError('')
         }
         setSuccess('');
+        setProcessing(true);
         const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(
             clientSecret,
             {
@@ -99,10 +100,27 @@ const CheckoutForm = ({ data }) => {
                                 console.log(data)
                                 if (data.acknowledged) {
                                     toast.success('saved changes')
-                                    navigate('/dashboard/MyOrders')
+                                    fetch(`http://localhost:5000/advertise?productId=${productId}`)
+                                                .then(res => res.json())
+                                                .then(data =>{
+                                                    if(data.length){
+                                                        const deletedId = data[0]._id
+                                                        fetch(`http://localhost:5000/advertise/${deletedId}`,{
+                                                            method : 'DELETE',
+                                                        })
+                                                        .then(res => res.json())
+                                                        .then(data=>{
+                                                            if (data.deletedCount > 0){
+                                                                navigate('/dashboard/MyOrders')
+                                                            }
+                                                        })
+                                                    }
+                                                    navigate('/dashboard/MyOrders')
+                                                })
                                 }
                                 else {
                                     toast.error(data.message)
+
                                 }
                             })
                     }

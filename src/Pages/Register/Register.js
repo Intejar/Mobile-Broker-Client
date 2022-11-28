@@ -5,9 +5,19 @@ import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 import { FaEyeSlash, FaEye, FaGoogle, FaGithub, FaWindows } from "react-icons/fa";
-import './Register.css'
+import './Register.css';
+import Lottie from 'react-lottie';
+
 
 const Register = () => {
+    const defaultOptions = {
+        loop: true,
+        autoplay: true,
+        animationData: require('../../login.json'),
+        rendererSettings: {
+          preserveAspectRatio: 'xMidYMid slice',
+        },
+      }
     const { register, formState: { errors }, handleSubmit } = useForm();
     const { createUser, updateUserProfile, googleLogIn } = useContext(AuthContext)
     const googleProvider = new GoogleAuthProvider()
@@ -120,13 +130,9 @@ const Register = () => {
             })
     }
     return (
-        <div className="hero min-h-screen bg-base-200">
+        <div className="hero min-h-screen bg-base-200 dark:bg-slate-800">
             <div className="hero-content flex-col lg:flex-row-reverse">
-                <div className="text-center lg:text-left">
-                    <h1 className="text-5xl font-bold">Login now!</h1>
-                    <p className="py-6"> please login</p>
-                </div>
-                <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+                <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100 dark:bg-slate-600">
                     <form onSubmit={handleSubmit(handleRegister)} className="card-body">
                         <div className="form-control">
                             <label className="label">
@@ -153,7 +159,7 @@ const Register = () => {
                             <label className="label">
                                 <span className="label-text">Select Your Role</span>
                             </label>
-                            <select {...register("role")} className='select select-ghost w-full bg-white'>
+                            <select {...register("role")} className='select select-ghost w-full bg-white select-bordered'>
                                 <option value="seller">Seller</option>
                                 <option value="buyer" selected>buyer</option>
                             </select>
@@ -162,10 +168,10 @@ const Register = () => {
                             <label className="label">
                                 <span className="label-text">Password</span>
                             </label>
-                            <div className='pass flex justify-between items-center border rounded-lg p-3'>
-                                <input  {...register("password", { required: "Password is required", pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/ })} type={(open === false) ? 'password' : 'text'} placeholder="password" className="" />
+                            <div className='pass flex justify-between items-center border rounded-lg p-3 dark: bg-white'>
+                                <input  {...register("password", { required: "Password is required", pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/ })} type={(open === false) ? 'password' : 'text'} placeholder="password" className="dark:text-black dark:bg-white" />
                                 {
-                                    (open === false) ? <FaEyeSlash onClick={toggle}></FaEyeSlash> : <FaEye onClick={toggle}></FaEye>
+                                    (open === false) ? <FaEyeSlash className='dark:text-black' onClick={toggle}></FaEyeSlash> : <FaEye className='dark:text-black' onClick={toggle}></FaEye>
                                 }
                             </div>
                             {errors.password && <p className='text-sm text-red-400' role="alert">{errors.password?.message}</p>}
@@ -175,10 +181,10 @@ const Register = () => {
                             <label className="label">
                                 <span className="label-text">Confirm Password</span>
                             </label>
-                            <div className='pass flex justify-between items-center border rounded-lg p-3'>
-                                <input  {...register("confirmPassword", { required: "Confirm Password is required" })} type={(open === false) ? 'password' : 'text'} placeholder="confirm password" className="" />
+                            <div className='pass flex justify-between items-center border rounded-lg p-3 dark: bg-white'>
+                                <input  {...register("confirmPassword", { required: "Confirm Password is required" })} type={(open === false) ? 'password' : 'text'} placeholder="confirm password" className="dark:text-black dark:bg-white" />
                                 {
-                                    (open === false) ? <FaEyeSlash onClick={toggle}></FaEyeSlash> : <FaEye onClick={toggle}></FaEye>
+                                    (open === false) ? <FaEyeSlash className='dark:text-black' onClick={toggle}></FaEyeSlash> : <FaEye className='dark:text-black' onClick={toggle}></FaEye>
                                 }
                             </div>
                             {errors.confirmPassword && <p className='text-sm text-red-400' role="alert">{errors.confirmPassword?.message}</p>}
@@ -191,7 +197,7 @@ const Register = () => {
                         </div>
                         <div className="form-control mt-1">
                             <label className="label">
-                                <h1 className='text-sm text-center'>Already have an account?<Link to='/login' className="link link-primary">login</Link></h1>
+                                <h1 className='text-sm text-center'>Already have an account?<Link to='/login' className="link link-primary dark:text-white">login</Link></h1>
                             </label>
                         </div>
                         <div className='flex items-center space-x-2'>
@@ -200,10 +206,14 @@ const Register = () => {
                             <hr className='w-1/2' />
                         </div>
                         <div className="form-control mt-6">
-                            <button onClick={handleGoogleLogIn} className="btn bg-base-100 text-black">continue with google</button>
+                        <button onClick={handleGoogleLogIn} className="btn btn-primary"><span className='flex items-center space-x-4'><span><FaGoogle></FaGoogle> </span> <span>continue with google</span></span></button>
                         </div>
                     </form>
                 </div>
+                <div className='w-1/2'>
+                    <Lottie options={defaultOptions}  />
+                </div>
+
             </div>
         </div>
     );

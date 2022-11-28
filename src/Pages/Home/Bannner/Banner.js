@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ReactTyped from 'react-typed';
-import img1 from '../../../assets/images/img1.png'
-import img2 from '../../../assets/images/img2.jpg'
-import img3 from '../../../assets/images/img3.png'
+import img1 from '../../../assets/images/1st.png'
+import img2 from '../../../assets/images/for seller.png'
+import img3 from '../../../assets/images/for buyer.png'
 
 
 const Banner = () => {
@@ -41,7 +41,7 @@ const Banner = () => {
         <div className="carousel w-full">
             <div className="hero">
                 <div ref={slideRef} className="hero-content flex-col lg:flex-row-reverse">
-                    <img src={featuredImages[currentIndex]} alt='img' className="w-3/4" />
+                    <img src={featuredImages[currentIndex]} alt='img' className="w-1/2" />
                     <div>
                         <h1 className="sm:text-2xl md:text-5xl font-bold">Welcome To Mobile-Broker!</h1>
                         <div className='flex items-center space-x-2 my-3'>

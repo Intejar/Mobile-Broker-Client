@@ -9,14 +9,15 @@ import MyOrders from "../../Pages/Dashboard/MyOrders/MyOrders";
 import MyProduct from "../../Pages/Dashboard/MyProduct/MyProduct";
 import MyWishList from "../../Pages/Dashboard/MyWishList/MyWishList";
 import Payment from "../../Pages/Dashboard/Payment/Payment";
+import WishListPay from "../../Pages/Dashboard/Payment/WishListPay/WishListPay";
 import UserProfile from "../../Pages/Dashboard/UserProfile/UserProfile";
-import WishListPay from "../../Pages/Dashboard/wishListPay/wishListPay";
 import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Login/Login";
 import Android from "../../Pages/ProductCategory/Android/Android";
 import Apple from "../../Pages/ProductCategory/Apple/Apple";
 import Google from "../../Pages/ProductCategory/Google/Google";
 import Register from "../../Pages/Register/Register";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 const router = createBrowserRouter([
     {
@@ -37,15 +38,15 @@ const router = createBrowserRouter([
             },
             {
                 path:'/category/apple',
-                element:<Apple></Apple>
+                element:<PrivateRoute><Apple></Apple></PrivateRoute>
             },
             {
                 path:'/category/android',
-                element:<Android></Android>
+                element:<PrivateRoute><Android></Android></PrivateRoute>
             },
             {
                 path:'/category/google',
-                element:<Google></Google>
+                element:<PrivateRoute><Google></Google></PrivateRoute>
             }
         ]
     },
@@ -91,11 +92,11 @@ const router = createBrowserRouter([
                 loader : ({params}) => fetch(`http://localhost:5000/bookings/${params.id}`)
             },
             {
-                path : '/dashboard/payment/:id',
-                element : <WishListPay></WishListPay>,
+                path: '/dashboard/wishlistPay/:id',
+                element: <WishListPay></WishListPay>,
                 loader : ({params}) => fetch(`http://localhost:5000/wishlist/${params.id}`)
-                
             }
+
         ]
     }
 ])

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
-const WishPayCard = ({data}) => {
+const WishPayCard = ({ data }) => {
     const [cardError, setCardError] = useState('')
     const [clientSecret, setClientSecret] = useState("");
     const [success, setSuccess] = useState('');
@@ -11,7 +11,7 @@ const WishPayCard = ({data}) => {
     const [transactionId, setTransactionId] = useState('');
     const stripe = useStripe()
     const elements = useElements()
-    const { productPrice, customerName, customerEmail, _id, productId } = data
+    const { productName, productPrice, customerName, customerEmail, _id, productId } = data
     console.log(_id)
     const navigate = useNavigate()
 
@@ -50,6 +50,7 @@ const WishPayCard = ({data}) => {
             setCardError('')
         }
         setSuccess('');
+        setProcessing(true);
         const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(
             clientSecret,
             {
@@ -72,14 +73,19 @@ const WishPayCard = ({data}) => {
 
             // console.log('card info', card);
             // // store payment info in the database
-            // const payment = {
-            //     price,
-            //     transactionId: paymentIntent.id,
-            //     email,
-            //     bookingId: _id
-            // }
-            fetch(`http://localhost:5000/bookings/${_id}`, {
-                method: 'PATCH',
+            const payment = {
+                customerName: customerName,
+                customerEmail: customerEmail,
+                productName: productName,
+                productPrice: productPrice,
+                paymentStatus: 'paid'
+            }
+            fetch(`http://localhost:5000/bookings`, {
+                method: "POST",
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(payment)
             })
                 .then(res => res.json())
                 .then(data => {
@@ -98,8 +104,36 @@ const WishPayCard = ({data}) => {
                             .then(data => {
                                 console.log(data)
                                 if (data.acknowledged) {
-                                    toast.success('saved changes')
-                                    navigate('/dashboard/MyOrders')
+                                    toast.success('Payment Successful')
+                                    fetch(`http://localhost:5000/wishlist/${_id}`, {
+                                        method: 'DELETE',
+                                    })
+                                        .then(res => res.json())
+                                        .then(data => {
+                                            console.log(data)
+                                            if (data.deletedCount > 0) {
+                                                fetch(`http://localhost:5000/advertise?productId=${productId}`)
+                                                .then(res => res.json())
+                                                .then(data =>{
+                                                    if(data.length){
+                                                        const deletedId = data[0]._id
+                                                        fetch(`http://localhost:5000/advertise/${deletedId}`,{
+                                                            method : 'DELETE',
+                                                        })
+                                                        .then(res => res.json())
+                                                        .then(data=>{
+                                                            if (data.deletedCount > 0){
+                                                                navigate('/dashboard/MyOrders')
+                                                            }
+                                                        })
+                                                    }
+                                                    navigate('/dashboard/MyOrders')
+                                                })
+                                               
+                                            }
+                                            
+                                        })
+
                                 }
                                 else {
                                     toast.error(data.message)

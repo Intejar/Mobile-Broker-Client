@@ -7,7 +7,7 @@ import { ClimbingBoxLoader } from 'react-spinners';
 
 const AllSellers = () => {
     const { user } = useContext(AuthContext)
-    const crntUserMail = user.email 
+    const crntUserMail = user.email
     const { data: users = [], refetch, isLoading } = useQuery(
         {
             queryKey: ['users'],
@@ -81,7 +81,7 @@ const AllSellers = () => {
                                     <th>{i + 1}</th>
                                     <td>{user.name}</td>
                                     <td>{user.email}</td>
-                                    <td>{user.userStatus !=='varified' &&  <button onClick={() => handleVarify(user._id)} className='btn btn-xs btn-primary'>varify</button>}</td>
+                                    <td>{user.userStatus !== 'varified' && <button onClick={() => handleVarify(user._id)} className='btn btn-xs btn-primary'>varify</button>}</td>
                                     <td> <button onClick={() => userDelete(user._id, user.email)}><FaTrashAlt className='text-red-400 hover:text-xl'></FaTrashAlt></button>
                                     </td>
                                 </tr>

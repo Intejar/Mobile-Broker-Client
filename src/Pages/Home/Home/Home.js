@@ -20,7 +20,7 @@ const Home = () => {
         return <div className='flex justify-center items-center'><ClimbingBoxLoader color="#36d7b7" /></div>
     }
     return (
-        <div className='dark:bg-slate-300'>
+        <div className='dark:text-white'>
             <div className='mx-5'>
                 <Banner></Banner>
             </div>
@@ -28,7 +28,7 @@ const Home = () => {
                 <Category></Category>
             </div>
             {
-                products.length &&
+                products.length>0 &&
                 <div className='mx-5 my-10'>
                     <AdvertiseProduct></AdvertiseProduct>
                 </div>

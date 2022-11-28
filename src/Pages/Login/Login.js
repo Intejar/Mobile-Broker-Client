@@ -5,9 +5,20 @@ import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaEyeSlash, FaEye, FaGoogle, FaGithub } from "react-icons/fa";
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
+// import loginAnim from '../../login.json'
+import Lottie from 'react-lottie';
+import './Login.css'
 
 
 const Login = () => {
+    const defaultOptions = {
+        loop: true,
+        autoplay: true,
+        animationData: require('../../register.json'),
+        rendererSettings: {
+          preserveAspectRatio: 'xMidYMid slice',
+        },
+      }
     const { register, formState: { errors }, handleSubmit } = useForm();
     const [logInError, setLogInError] = useState('')
     const [open, setOpen] = useState(false);
@@ -80,7 +91,7 @@ const Login = () => {
                         }
                         else {
                             const role = 'buyer'
-                            saveUser(user.displayName, user.email,role, user.photoURL )
+                            saveUser(user.displayName, user.email, role, user.photoURL)
                             toast.success('user login successfull')
                         }
                     })
@@ -107,31 +118,31 @@ const Login = () => {
             })
     }
     return (
-        <div className="hero min-h-screen bg-base-200">
+        <div className="hero min-h-screen bg-base-200 dark:bg-slate-800">
             <div className="hero-content flex-col lg:flex-row-reverse">
-                <div className="text-center lg:text-left">
+                {/* <div className="text-center lg:text-left">
                     <h1 className="text-5xl font-bold">Login now!</h1>
                     <p className="py-6"> please login</p>
-                </div>
-                <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+                </div> */}
+                <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100 dark:bg-slate-600 dark:text-white">
                     <form onSubmit={handleSubmit(handleLogin)} className="card-body">
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Email</span>
                             </label>
-                            <input {...register("email", { required: "Email Address is required" })} type="text" placeholder="email" onBlur={emailBlur} className="input input-bordered" />
+                            <input {...register("email", { required: "Email Address is required" })} type="text" placeholder="email" onBlur={emailBlur} className="input input-bordered dark:text-black" />
                             {errors.email && <p className='text-sm text-red-400 mt-3' role="alert">{errors.email?.message}</p>}
                         </div>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Password</span>
                             </label>
-                            <div className='pass flex justify-between items-center border rounded-lg p-3'>
-                                <input  {...register("password", { required: "Password is required", pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/ })} type={(open === false) ? 'password' : 'text'} placeholder="password" className="" />
+                            <div className='pass flex justify-between items-center border rounded-lg p-3 dark:bg-white'>
+                                <input  {...register("password", { required: "Password is required", pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/ })} type={(open === false) ? 'password' : 'text'} placeholder="password" className="dark:text-black dark:bg-white" />
                                 {
-                                    (open === false) ? <FaEyeSlash onClick={toggle}></FaEyeSlash> : <FaEye onClick={toggle}></FaEye>
+                                    (open === false) ? <FaEyeSlash className='dark:text-black' onClick={toggle}></FaEyeSlash> : <FaEye  className='dark:text-black' onClick={toggle}></FaEye>
                                 }
-                                
+
                             </div>
                             {errors.password && <p className='text-sm text-red-400' role="alert">{errors.password?.message}</p>}
                             {errors?.password?.type === 'pattern' && <p className='text-xs text-red-400 max-w-fit mt-3' role="alert">Minimum eight characters, at least one uppercasse,lowercase,number,special letter</p>}
@@ -143,7 +154,7 @@ const Login = () => {
                             logInError && <p className='text-red-500 my-3'>{logInError}</p>
                         }
                         <div className="form-control mt-6">
-                            <button className="btn">Login</button>
+                            <button className="btn btn-primary">Login</button>
                         </div>
                         <div className="form-control mt-1">
                             <label className="label">
@@ -156,10 +167,13 @@ const Login = () => {
                             <hr className='w-1/2' />
                         </div>
                         <div className="form-control mt-6">
-                            <button onClick={handleGoogleLogIn} className="btn bg-base-100 text-black">continue with google</button>
+                            <button onClick={handleGoogleLogIn} className="btn btn-primary"><span className='flex items-center space-x-4'><span><FaGoogle></FaGoogle> </span> <span>continue with google</span></span></button>
                         </div>
 
                     </form>
+                </div>
+                <div className=''>
+                    <Lottie options={defaultOptions}  />
                 </div>
             </div>
         </div>
