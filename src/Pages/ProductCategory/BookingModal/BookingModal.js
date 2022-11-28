@@ -6,7 +6,7 @@ const BookingModal = ({booking, user}) => {
     const navigate = useNavigate()
     const [info, setInfo] = useState([])
     useEffect(() => {
-        fetch(`http://localhost:5000/products/${booking}`)
+        fetch(`https://mobile-broker-server.vercel.app/products/${booking}`)
             .then(res => res.json())
             .then(data => {
                 console.log(data)
@@ -34,7 +34,7 @@ const BookingModal = ({booking, user}) => {
             location: location,
             paymentStatus : 'unpaid'
         }
-        fetch('http://localhost:5000/bookings', {
+        fetch('https://mobile-broker-server.vercel.app/bookings', {
             method: "POST",
             headers: {
                 'content-type': 'application/json'

@@ -8,9 +8,11 @@ import { FaEyeSlash, FaEye, FaGoogle, FaGithub, FaWindows } from "react-icons/fa
 import './Register.css';
 import Lottie from 'react-lottie';
 import useToken from '../hooks/useToken';
+import { TabTitle } from '../../DynamicTitle/DynamicTitle';
 
 
 const Register = () => {
+    TabTitle('SignUp-Mobile Broker')
     const defaultOptions = {
         loop: true,
         autoplay: true,
@@ -90,13 +92,13 @@ const Register = () => {
             .then(res => {
                 const user = res.user
                 console.log(user)
-                fetch(`http://localhost:5000/users?email=${user.email}`)
+                fetch(`https://mobile-broker-server.vercel.app/users?email=${user.email}`)
                     .then(res => res.json())
                     .then(data => {
                         if (data.length) {
                             setUserEmail(data.email)
                             toast.success('user login successfull')
-                            navigate('/home')
+                            navigate('/')
                         }
                         else {
                             const role = 'buyer'
@@ -117,7 +119,7 @@ const Register = () => {
             role: role,
             img: image
         };
-        fetch('http://localhost:5000/users', {
+        fetch('https://mobile-broker-server.vercel.app/users', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

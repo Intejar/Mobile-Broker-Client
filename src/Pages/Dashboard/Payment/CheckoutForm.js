@@ -17,7 +17,7 @@ const CheckoutForm = ({ data }) => {
 
     useEffect(() => {
         // Create PaymentIntent as soon as the page loads
-        fetch("http://localhost:5000/create-payment-intent", {
+        fetch("https://mobile-broker-server.vercel.app/create-payment-intent", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ productPrice })
@@ -79,7 +79,7 @@ const CheckoutForm = ({ data }) => {
             //     email,
             //     bookingId: _id
             // }
-            fetch(`http://localhost:5000/bookings/${_id}`, {
+            fetch(`https://mobile-broker-server.vercel.app/bookings/${_id}`, {
                 method: 'PATCH',
             })
                 .then(res => res.json())
@@ -88,7 +88,7 @@ const CheckoutForm = ({ data }) => {
                     if (data.acknowledged) {
                         setSuccess('Congrats! your payment completed');
                         setTransactionId(paymentIntent.id);
-                        fetch(`http://localhost:5000/products/${productId}`, {
+                        fetch(`https://mobile-broker-server.vercel.app/products/${productId}`, {
                             method: 'PATCH',
                             headers: {
                                 'content-type': 'application/json'
@@ -100,12 +100,12 @@ const CheckoutForm = ({ data }) => {
                                 console.log(data)
                                 if (data.acknowledged) {
                                     toast.success('saved changes')
-                                    fetch(`http://localhost:5000/advertise?productId=${productId}`)
+                                    fetch(`https://mobile-broker-server.vercel.app/advertise?productId=${productId}`)
                                                 .then(res => res.json())
                                                 .then(data =>{
                                                     if(data.length){
                                                         const deletedId = data[0]._id
-                                                        fetch(`http://localhost:5000/advertise/${deletedId}`,{
+                                                        fetch(`https://mobile-broker-server.vercel.app/advertise/${deletedId}`,{
                                                             method : 'DELETE',
                                                         })
                                                         .then(res => res.json())

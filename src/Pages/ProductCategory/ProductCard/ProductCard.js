@@ -17,7 +17,7 @@ const ProductCard = ({ product }) => {
     const [booking, setBooking] = useState(null)
     const navigate = useNavigate()
     useEffect(() => {
-        fetch(`http://localhost:5000/users?email=${user?.email}`)
+        fetch(`https://mobile-broker-server.vercel.app/users?email=${user?.email}`)
             .then(res => res.json())
             .then(data => {
                 console.log(data)
@@ -37,7 +37,7 @@ const ProductCard = ({ product }) => {
             paymentStatus: 'unpaid'
         }
 
-        fetch('http://localhost:5000/wishlist', {
+        fetch('https://mobile-broker-server.vercel.app/wishlist', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -58,7 +58,7 @@ const ProductCard = ({ product }) => {
 
     useEffect(() => {
         if (email) {
-            fetch(`http://localhost:5000/users/varify/${email}`)
+            fetch(`https://mobile-broker-server.vercel.app/users/varify/${email}`)
                 .then(res => res.json())
                 .then(data => {
                     console.log(data)

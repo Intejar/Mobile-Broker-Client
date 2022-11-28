@@ -42,8 +42,17 @@ const Navbar = () => {
 
     const menuItems = <React.Fragment>
         <li><Link to='/' className='font-bold dark:text-white'>Home</Link></li>
-        <li><Link to='' className='font-bold dark:text-white'>Category</Link></li>
-        <li><Link to='' className='font-bold dark:text-white'>Blog</Link></li>
+        <li>
+            <div className="dropdown dropdown-bottom">
+                <label tabIndex={0} className="font-bold dark:text-white">Category</label>
+                <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                    <li><Link to='/category/apple'>Apple</Link></li>
+                    <li><Link to='/category/android'>Android</Link></li>
+                    <li><Link to='/category/google'>Google</Link></li>
+                </ul>
+            </div>
+        </li>
+        <li><Link to='/blog' className='font-bold dark:text-white'>Blog</Link></li>
         {
             user?.uid ?
                 <>

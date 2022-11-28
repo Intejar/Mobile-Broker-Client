@@ -2,6 +2,7 @@ import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import React from 'react';
 import { useLoaderData } from 'react-router-dom';
+import { TabTitle } from '../../../../DynamicTitle/DynamicTitle';
 import WishPayCard from './WishPayCard';
 
 
@@ -9,6 +10,7 @@ const stripePromise = loadStripe('pk_test_51M8jIFCRKiTr81AEwQ9Uwa2VTyvep9sHhbne0
 
 
 const WishListPay = () => {
+    TabTitle('Payment-Mobile Broker')
     const data = useLoaderData()
     const { customerName, customerEmail, customerPhone, productName, productPrice } = data
     return (

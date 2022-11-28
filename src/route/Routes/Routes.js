@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import DashboardLayout from "../../layout/DashboardLayout";
 import Main from "../../layout/Main";
+import Blog from "../../Pages/Blog/Blog";
 import AddProduct from "../../Pages/Dashboard/AddProduct/AddProduct";
 import AllBuyers from "../../Pages/Dashboard/AllBuyers/AllBuyers";
 import AllSellers from "../../Pages/Dashboard/AllSellers/AllSellers";
@@ -13,6 +14,7 @@ import WishListPay from "../../Pages/Dashboard/Payment/WishListPay/WishListPay";
 import UserProfile from "../../Pages/Dashboard/UserProfile/UserProfile";
 import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Login/Login";
+import NotFound from "../../Pages/NotFound/NotFound";
 import Android from "../../Pages/ProductCategory/Android/Android";
 import Apple from "../../Pages/ProductCategory/Apple/Apple";
 import Google from "../../Pages/ProductCategory/Google/Google";
@@ -47,6 +49,10 @@ const router = createBrowserRouter([
             {
                 path:'/category/google',
                 element:<PrivateRoute><Google></Google></PrivateRoute>
+            },
+            {
+                path:'/blog',
+                element: <Blog></Blog>
             }
         ]
     },
@@ -89,15 +95,19 @@ const router = createBrowserRouter([
             {
                 path : '/dashboard/payment/:id',
                 element : <Payment></Payment>,
-                loader : ({params}) => fetch(`http://localhost:5000/bookings/${params.id}`)
+                loader : ({params}) => fetch(`https://mobile-broker-server.vercel.app/bookings/${params.id}`)
             },
             {
                 path: '/dashboard/wishlistPay/:id',
                 element: <WishListPay></WishListPay>,
-                loader : ({params}) => fetch(`http://localhost:5000/wishlist/${params.id}`)
+                loader : ({params}) => fetch(`https://mobile-broker-server.vercel.app/wishlist/${params.id}`)
             }
 
         ]
+    },
+    {
+        path:'*',
+        element:<NotFound></NotFound>
     }
 ])
 

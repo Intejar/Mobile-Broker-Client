@@ -7,10 +7,12 @@ import { FaTrashAlt, FaEdit } from "react-icons/fa";
 import EditModal from '../EditModal/EditModal';
 import { useNavigate } from 'react-router-dom';
 import { isDisabled } from '@testing-library/user-event/dist/utils';
+import { TabTitle } from '../../../DynamicTitle/DynamicTitle';
 
 
 
 const MyProduct = () => {
+    TabTitle('My Product-Mobile Broker')
     const { user } = useContext(AuthContext)
     const navigate = useNavigate()
     const [edit, setEdit] = useState(null)
@@ -21,7 +23,7 @@ const MyProduct = () => {
         {
             queryKey: ['user', crntUserMail],
             queryFn: async () => {
-                const res = await fetch(`http://localhost:5000/products?email=${crntUserMail}`);
+                const res = await fetch(`https://mobile-broker-server.vercel.app/products?email=${crntUserMail}`);
                 const data = await res.json();
                 return data
             }
@@ -34,7 +36,7 @@ const MyProduct = () => {
     const handleDelete = (id) => {
         const proceed = window.confirm('Are you sure you want to delete this user?')
         if (proceed) {
-            fetch(`http://localhost:5000/products/${id}`, {
+            fetch(`https://mobile-broker-server.vercel.app/products/${id}`, {
                 method: 'DELETE',
             })
                 .then(res => res.json())
@@ -50,7 +52,7 @@ const MyProduct = () => {
     }
 
     const handleAdvertise = (id, name, email, photo, productName, productImg, productPrice) => {
-        fetch(`http://localhost:5000/advertise?productId=${id}`)
+        fetch(`https://mobile-broker-server.vercel.app/advertise?productId=${id}`)
             .then(res => res.json())
             .then(data => {
                 if (data.length) {
@@ -67,7 +69,7 @@ const MyProduct = () => {
                         productPrice: productPrice,
                         status: 'unsold'
                     }
-                    fetch('http://localhost:5000/advertise', {
+                    fetch('https://mobile-broker-server.vercel.app/advertise', {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json'
@@ -89,7 +91,7 @@ const MyProduct = () => {
 
     return (
         <div>
-            <h1>All Products</h1>
+            <h1 className='text-2xl text-center dark:text-white my-5'>All Products</h1>
             <div className="overflow-x-auto mx-5">
                 <table className="table w-full">
                     <thead>

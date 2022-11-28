@@ -9,17 +9,19 @@ import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 import Lottie from 'react-lottie';
 import './Login.css'
 import useToken from '../hooks/useToken';
+import { TabTitle } from '../../DynamicTitle/DynamicTitle';
 
 
 const Login = () => {
+    TabTitle('LogIn-Mobile Broker')
     const defaultOptions = {
         loop: true,
         autoplay: true,
         animationData: require('../../register.json'),
         rendererSettings: {
-          preserveAspectRatio: 'xMidYMid slice',
+            preserveAspectRatio: 'xMidYMid slice',
         },
-      }
+    }
     const { register, formState: { errors }, handleSubmit } = useForm();
     const [logInError, setLogInError] = useState('')
     const [open, setOpen] = useState(false);
@@ -32,7 +34,7 @@ const Login = () => {
     const navigate = useNavigate();
     const googleProvider = new GoogleAuthProvider()
 
-    const from = location.state?.from?.pathname || '/';
+    const from = location.state?.from?.pathname ||  '/';
     if (token) {
         navigate(from, { replace: true });
     }
@@ -80,18 +82,16 @@ const Login = () => {
             .then(res => {
                 const user = res.user
                 console.log(user)
-                fetch(`http://localhost:5000/users?email=${user.email}`)
+                fetch(`https://mobile-broker-server.vercel.app/users?email=${user.email}`)
                     .then(res => res.json())
                     .then(data => {
-                        console.log(data[0].email)
                         if (data.length) {
-                            setLogInUserEmail(data[0].email)
+                            setLogInUserEmail(data.email)
                             toast.success('user login successfull')
                         }
                         else {
                             const role = 'buyer'
                             saveUser(user.displayName, user.email, role, user.photoURL)
-                            toast.success('user login successfull')
                         }
                     })
             })
@@ -101,9 +101,14 @@ const Login = () => {
             })
     }
 
-    const saveUser = (name, email) => {
-        const newUser = { name, email };
-        fetch('http://localhost:5000/users', {
+    const saveUser = (name, email, role, image) => {
+        const newUser = {
+            name: name,
+            email: email,
+            role: role,
+            img: image
+        };
+        fetch('https://mobile-broker-server.vercel.app/users', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -112,7 +117,9 @@ const Login = () => {
         })
             .then(res => res.json())
             .then(data => {
+                toast.success('user registered successfully!!')
                 setLogInUserEmail(email)
+
             })
     }
     return (
@@ -138,7 +145,7 @@ const Login = () => {
                             <div className='pass flex justify-between items-center border rounded-lg p-3 dark:bg-white'>
                                 <input  {...register("password", { required: "Password is required", pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/ })} type={(open === false) ? 'password' : 'text'} placeholder="password" className="dark:text-black dark:bg-white" />
                                 {
-                                    (open === false) ? <FaEyeSlash className='dark:text-black' onClick={toggle}></FaEyeSlash> : <FaEye  className='dark:text-black' onClick={toggle}></FaEye>
+                                    (open === false) ? <FaEyeSlash className='dark:text-black' onClick={toggle}></FaEyeSlash> : <FaEye className='dark:text-black' onClick={toggle}></FaEye>
                                 }
 
                             </div>
@@ -171,7 +178,7 @@ const Login = () => {
                     </form>
                 </div>
                 <div className=''>
-                    <Lottie options={defaultOptions}  />
+                    <Lottie options={defaultOptions} />
                 </div>
             </div>
         </div>

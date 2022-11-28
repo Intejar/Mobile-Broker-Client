@@ -2,13 +2,15 @@ import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import ProductCard from '../ProductCard/ProductCard';
 import { ClimbingBoxLoader } from 'react-spinners';
+import { TabTitle } from '../../../DynamicTitle/DynamicTitle';
 
 
 const Android = () => {
+    TabTitle('Android-Mobile Broker')
     const { data: products = [], refetch, isLoading } = useQuery({
         queryKey: ['Android'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/products?category=Android')
+            const res = await fetch('https://mobile-broker-server.vercel.app/products?category=Android')
             const data = await res.json();
             return data
         }

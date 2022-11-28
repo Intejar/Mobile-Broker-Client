@@ -4,15 +4,17 @@ import toast from 'react-hot-toast';
 import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
 import { FaTrashAlt, FaWindows } from "react-icons/fa";
 import { ClimbingBoxLoader } from 'react-spinners';
+import { TabTitle } from '../../../DynamicTitle/DynamicTitle';
 
 const AllSellers = () => {
+    TabTitle('All Seller-Mobile Broker')
     const { user } = useContext(AuthContext)
     const crntUserMail = user.email
     const { data: users = [], refetch, isLoading } = useQuery(
         {
             queryKey: ['users'],
             queryFn: async () => {
-                const res = await fetch('http://localhost:5000/users?role=seller');
+                const res = await fetch('https://mobile-broker-server.vercel.app/users?role=seller');
                 const data = await res.json();
                 return data
             }
@@ -23,7 +25,7 @@ const AllSellers = () => {
     }
 
     const handleVarify = id => {
-        fetch(`http://localhost:5000/users/varify/${id}`, {
+        fetch(`https://mobile-broker-server.vercel.app/users/varify/${id}`, {
             method: 'PUT',
             // headers: {
             //     authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -45,7 +47,7 @@ const AllSellers = () => {
         else {
             const proceed = window.confirm('Are you sure you want to delete this user?')
             if (proceed) {
-                fetch(`http://localhost:5000/users/${id}`, {
+                fetch(`https://mobile-broker-server.vercel.app/users/${id}`, {
                     method: 'DELETE',
                 })
                     .then(res => res.json())
@@ -62,7 +64,7 @@ const AllSellers = () => {
 
     return (
         <div>
-            <h1>All Seller</h1>
+            <h1 className='text-2xl text-center dark:text-white my-5'>All Seller</h1>
             <div className="overflow-x-auto mx-5">
                 <table className="table w-full">
                     <thead>

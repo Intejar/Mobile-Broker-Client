@@ -4,8 +4,10 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
+import { TabTitle } from '../../../DynamicTitle/DynamicTitle';
 
 const AddProduct = () => {
+    TabTitle('Add Product-Mobile Broker')
     const { user } = useContext(AuthContext)
     const { register, formState: { errors }, handleSubmit } = useForm();
     const imageHostKey = process.env.REACT_APP_imgbbKey
@@ -46,7 +48,7 @@ const AddProduct = () => {
                         status : 'unsold'
                     }
                     console.log(product)
-                    fetch('http://localhost:5000/products', {
+                    fetch('https://mobile-broker-server.vercel.app/products', {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json',

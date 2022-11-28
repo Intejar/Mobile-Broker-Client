@@ -5,17 +5,19 @@ import { FaTrashAlt, FaWindows } from "react-icons/fa";
 import { ClimbingBoxLoader } from 'react-spinners';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
+import { TabTitle } from '../../../DynamicTitle/DynamicTitle';
 
 
 
 const MyWishList = () => {
+    TabTitle('My Wishlist-Mobile Broker')
     const { user } = useContext(AuthContext)
     const crntUserMail = user.email
     const { data: bookings = [], refetch, isLoading } = useQuery(
         {
             queryKey: ['booking'],
             queryFn: async () => {
-                const res = await fetch(`http://localhost:5000/wishlist?customerEmail=${crntUserMail}`);
+                const res = await fetch(`https://mobile-broker-server.vercel.app/wishlist?customerEmail=${crntUserMail}`);
                 const data = await res.json();
                 return data
             }
@@ -26,7 +28,7 @@ const MyWishList = () => {
     }
 
     // const handleAdmin = id => {
-    //     fetch(`http://localhost:5000/users/admin/${id}`, {
+    //     fetch(`https://mobile-broker-server.vercel.app/users/admin/${id}`, {
     //         method: 'PUT',
     //         headers: {
     //             authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -44,7 +46,7 @@ const MyWishList = () => {
     const bookingDelete = (id, name) => {
         const proceed = window.confirm(`Are you sure you want to delete ${name}?`)
         if (proceed) {
-            fetch(`http://localhost:5000/wishlist/${id}`, {
+            fetch(`https://mobile-broker-server.vercel.app/wishlist/${id}`, {
                 method: 'DELETE',
             })
                 .then(res => res.json())
@@ -61,7 +63,7 @@ const MyWishList = () => {
 
     return (
         <div>
-            <h1>All Wish List</h1>
+            <h1 className='text-2xl text-center dark:text-white my-5'>All Wish List</h1>
             <div className="overflow-x-auto mx-5">
                 <table className="table w-full">
                     <thead>

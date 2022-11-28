@@ -6,7 +6,7 @@ const EditModal = ({ edit, refetch }) => {
     console.log(edit)
     const [info, setInfo] = useState([])
     useEffect(() => {
-        fetch(`http://localhost:5000/products/${edit}`)
+        fetch(`https://mobile-broker-server.vercel.app/products/${edit}`)
             .then(res => res.json())
             .then(data => {
                 console.log(data)
@@ -22,7 +22,7 @@ const EditModal = ({ edit, refetch }) => {
         const name = form.name.value;
 
     
-        fetch(`http://localhost:5000/products/${edit}`, {
+        fetch(`https://mobile-broker-server.vercel.app/products/${edit}`, {
             method: "PATCH",
             headers: {
                 'content-type': 'application/json'
