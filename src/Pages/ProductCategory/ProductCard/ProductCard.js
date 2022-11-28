@@ -11,7 +11,7 @@ import { FaUserTie } from "react-icons/fa";
 
 
 const ProductCard = ({ product }) => {
-    const { _id, category, phoneNumber, condition, date, description,name, email, location, originalPrice, photo, productImg, productName, purchaseYear, usedYear, resalePrice } = product
+    const { _id, category, phoneNumber, condition, date, description, name, email, location, originalPrice, photo, productImg, productName, purchaseYear, usedYear, resalePrice, status } = product
     const { user } = useContext(AuthContext)
     const [userRole, setUserRole] = useState([])
     const [booking, setBooking] = useState(null)
@@ -91,7 +91,7 @@ const ProductCard = ({ product }) => {
 
                         }
                         <div>
-                        <div className='flex items-center space-x-2'>
+                            <div className='flex items-center space-x-2'>
                                 <div><FaUserTie></FaUserTie></div>
                                 <div className='text-md'>{name}</div>
                             </div>
@@ -132,7 +132,13 @@ const ProductCard = ({ product }) => {
                                 <>
                                     <button className="btn btn-primary">Report</button>
                                     <button onClick={() => handleHeart(productName)} className="btn btn-primary">{heart}</button>
-                                    <label onClick={() => setBooking(_id)} htmlFor="booking-modal" className='btn'>book now</label>
+                                    {
+                                        status === 'sold' ?
+
+                                        <label  className='btn'>not available</label>
+                                        :
+                                        <label onClick={() => setBooking(_id)} htmlFor="booking-modal" className='btn btn-primary'>book now</label>
+                                    }
                                 </>
                                 :
                                 <button className="btn btn-primary"><Link to='/dashboard/AddProduct'>Add Product</Link></button>

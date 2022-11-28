@@ -21,9 +21,11 @@ const BookingModal = ({booking, user}) => {
         const productName = form.productName.value;
         const productPrice = form.productPrice.value;
         const location = form.location.value;
-        const phoneNumber = form.phoneNumber.value
+        const phoneNumber = form.phoneNumber.value;
+        const productId = form.productId.value
  
         const bookingInfo = {
+            productId: productId,
             customerName : name,
             customerEmail : email,
             customerPhone : phoneNumber,
@@ -76,6 +78,10 @@ const BookingModal = ({booking, user}) => {
                             <span className="label-text">Product Name</span>
                         </label>
                         <input name='productName' type="text" placeholder="Product Name" defaultValue={info?.productName} disabled className="my-1 input input-border input-accent  w-full " />
+                        <label className="label">
+                            <span className="label-text">Product ID</span>
+                        </label>
+                        <input name='productId' type="text" placeholder="Product Name" defaultValue={info?._id} disabled className="my-1 input input-border input-accent  w-full " />
                         <label className="label">
                             <span className="label-text">Product Resale Price</span>
                         </label>
