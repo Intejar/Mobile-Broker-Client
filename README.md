@@ -4,9 +4,6 @@ Live website link: https://mobile-broker-7092c.web.app/
 
 ## Admin Id & Password
 
-email: meherabintejar@gmail.com
-pass: Asif@1001
-
 ## Project Fetures
 
 * React
