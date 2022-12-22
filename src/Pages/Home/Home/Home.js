@@ -23,7 +23,7 @@ const Home = () => {
         return <div className='flex justify-center items-center'><ClimbingBoxLoader color="#36d7b7" /></div>
     }
     return (
-        <div className='min-h-screen dark:text-white'>
+        <div className=' dark:text-white'>
             <div className='mx-5'>
                 <Banner></Banner>
             </div>

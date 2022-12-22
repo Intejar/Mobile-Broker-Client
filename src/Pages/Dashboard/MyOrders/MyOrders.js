@@ -16,7 +16,7 @@ const MyOrders = () => {
     const crntUserMail = user.email
     const { data: bookings = [], refetch, isLoading } = useQuery(
         {
-            queryKey: ['booking'],
+            queryKey: ['bookings'],
             queryFn: async () => {
                 const res = await fetch(`https://mobile-broker-server.vercel.app/bookings?customerEmail=${crntUserMail}`, {
                     headers: {

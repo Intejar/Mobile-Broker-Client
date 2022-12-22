@@ -8,13 +8,13 @@ const AdvertiseCard = ({ product }) => {
     const { sellerName, sellerEmail, sellerPhoto, productName, productImg, productPrice } = product
     return (
         <Fade left>
-            <div className="card card-side bg-base-100 dark:bg-slate-600 shadow-xl">
-                <figure><img src={productImg} alt="Movie" /></figure>
+            <div className="card bg-base-100 dark:bg-slate-600 shadow-xl">
+                <figure><img className='h-60 w-full' src={productImg} alt="Movie" /></figure>
                 <div className='card p-5'>
                     <div className='flex items-center space-x-2'>
 
                         <div className="avatar">
-                            <div className="w-24 rounded-xl">
+                            <div className="w-24 rounded-full">
                                 <img src={sellerPhoto} alt='sellerPhoto' />
                             </div>
                         </div>
@@ -41,3 +41,5 @@ const AdvertiseCard = ({ product }) => {
 };
 
 export default AdvertiseCard;
+
+

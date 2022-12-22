@@ -25,8 +25,8 @@ const Category = () => {
                 <Fade top>
                     <div className="card card-side bg-base-100  dark:bg-slate-600 shadow-xl">
                         <figure><img src={android} alt="Movie" /></figure>
-                        <div className="card-body text-2xl font-bold">
-                            <h2 className="card-title">Android Products</h2>
+                        <div className="card-body ">
+                            <h2 className="card-title text-2xl font-bold">Android Products</h2>
                             <p>Here You can find all android products that sellers has posted to sale!</p>
                             <div className="card-actions justify-end">
                                 <button className="btn btn-primary"><Link to='/category/android'>see products</Link></button>
@@ -37,8 +37,8 @@ const Category = () => {
                 <Fade right>
                     <div className="card card-side bg-base-100  dark:bg-slate-600 shadow-xl">
                         <figure><img src={google} alt="Movie" /></figure>
-                        <div className="card-body text-2xl font-bold">
-                            <h2 className="card-title">Google Products</h2>
+                        <div className="card-body ">
+                            <h2 className="card-title text-2xl font-bold">Google Products</h2>
                             <p>Here You can find all google pixel phones that sellers has posted!</p>
                             <div className="card-actions justify-end">
                                 <button className="btn btn-primary"><Link to='/category/google'>see products</Link></button>

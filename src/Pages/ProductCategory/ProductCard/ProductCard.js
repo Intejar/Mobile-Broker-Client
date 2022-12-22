@@ -70,7 +70,7 @@ const ProductCard = ({ product }) => {
     return (
         <div className="hero my-10 bg-gray-300 dark:bg-slate-600 dark:text-white rounded-xl">
             <div className="hero-content flex-col lg:flex-row">
-                <img src={productImg} alt="productImg" className="max-w-sm rounded-lg shadow-2xl" />
+                <img src={productImg} alt="productImg" className="max-w-sm h-full rounded-lg shadow-2xl" />
                 <div className='card'>
                     <div className='flex items-center space-x-2'>
                         {
